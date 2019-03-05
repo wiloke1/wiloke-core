@@ -1,0 +1,7 @@
+//- demo: true
+mixin coreImage(args)
+	#{set(args, 'tag') === 'a' ? 'a' : 'div'}.wil__image(
+		class=args.addClass,
+		href=args.href,
+		style=`background-image: url(${set(args, 'src', 'https://placeimg.com/200/200/any')})`
+	)

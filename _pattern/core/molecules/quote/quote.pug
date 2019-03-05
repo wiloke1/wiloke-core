@@ -1,0 +1,16 @@
+//- demo: true
+mixin coreQuote(args)
+	include cssmodule
+	+module('div', css.module, args)
+		- var args = item
+		if (args.modifier == 'style2')
+			div(class=css.avatar): img(src=set(args, 'avatar', 'http://via.placeholder.com/180x180'), alt="")
+		
+		div(class=css.main)
+			div(class=css.content): p= set(args, 'text', random(random.text, 200))
+
+			div(class=css.footer)
+				if (args.modifier != 'style2')
+					div(class=css.avatar): img(src=set(args, 'avatar', random(random.people.avatar)), alt="")
+				h4(class=css.name)= set(args, 'name', random(random.people.name))
+				span(class=css.work)= set(args, 'work', random(random.work))

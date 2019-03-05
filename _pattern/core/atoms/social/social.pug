@@ -1,0 +1,9 @@
+//- demo: true
+mixin coreSocial(args)
+	include cssmodule
+	+module('div', css.module, args)
+		- var args = item
+		a(href="#", class=css.item)
+			i(class=set(args, 'icon', random(random.social)), class=css.icon)
+			if (set(args, 'enableText'))
+				span= set(args, 'text')

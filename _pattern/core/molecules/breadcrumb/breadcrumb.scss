@@ -1,0 +1,76 @@
+/* //--- coreBreadcrumb
+--------------------------------------------------------------------------------*/
+
+// module
+.module {
+	overflow: hidden;
+}
+
+// title
+.title {
+	margin: 0;
+	margin-bottom: 5px;
+	@include pfs('font-size', (
+		400px: 24px,
+		1200px: 40px
+	))
+}
+
+// list
+.list {
+	font-size: 0;
+	@include list-style;
+	li {
+		display: inline-block;
+		font-size: 14px;
+		&:after {
+			content: '/';
+			display: inline-block;
+		}
+		&:last-child {
+			&:after {
+				display: none;
+			}
+		}
+	}
+	a {
+		display: inline-block;
+		padding: 0 4px;
+		&:hover {
+			color: inherit;
+		}
+	}
+}
+
+// modifier reverse
+.reverse {
+	// title
+	.title {
+		@include pfs('font-size', (
+			400px: 26px,
+			1200px: 50px
+		))
+	}
+
+	// list
+	.list {
+		font-family: $font-tertiary;
+		font-style: italic;
+	}
+}
+
+// modifier style2
+.style2 {
+	// title
+	.title {
+		color: $color-primary;
+	}
+}
+
+// modifier light
+.light {
+	color: $color-light;
+	.title {
+		color: inherit;
+	}
+}

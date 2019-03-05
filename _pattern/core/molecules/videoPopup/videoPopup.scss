@@ -1,0 +1,177 @@
+/* //--- coreVideopopup
+--------------------------------------------------------------------------------*/
+
+// module
+.module {
+	position: relative;
+}
+
+// media
+.media {
+	img {
+		width: 100%;
+	}
+	a {
+		transition: none;
+	}
+}
+
+// img
+.img {
+	&:after {
+		padding-top: 56.25%;
+	}
+}
+
+// button
+.button {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 9;
+	transform: translate(-50%, -50%);
+}
+
+// icon
+.icon {
+	color: $color-light;
+	background-color: $color-primary;
+	border-radius: 50%;
+	&:after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		background: inherit;
+		border-radius: inherit;
+		:global {
+			animation: playAnim 2.5s ease infinite;
+		}
+		@keyframes :global(playAnim) {
+			0% {
+				transform: scale(1);
+				opacity: 1;
+			}
+			60%,
+			100% {
+				transform: scale(1.7);
+				opacity: 0;
+			}
+		}
+	}
+	@include pfs('width, height', (
+		400px: 40px,
+		1200px: 60px
+	));
+	@include pfs('font-size', (
+		400px: 20px,
+		1200px: 26px
+	));
+
+	i {
+		position: absolute;;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: $color-light !important;
+	}
+}
+
+// overlay
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(#000, 0.2);
+}
+
+// modifier small
+.sm {
+	.icon {
+		width: 50px;
+		height: 50px;
+		font-size: 23px;
+	}
+}
+
+// modifier ratio-4by3
+.ratio-4by3 {
+	.img {
+		&:after {
+			padding-top: 75%;
+		}
+	}
+}
+
+// modifier round
+.round {
+	border-radius: $round;
+	.media {
+		border-radius: $round;
+		overflow: hidden;
+		image-rendering: pixelated;
+	}
+}
+
+// parallax
+:global(.video-popup-parallax-inner) {
+	overflow: hidden;
+	&:after {
+		content: '';
+		display: block;
+		padding-top: 56.25%;
+	}
+	.media {
+		overflow: hidden;
+		position: absolute;
+		top: -10%;
+		left: -10%;
+		width: 120%;
+		height: 120%;
+	}
+	.img {
+		padding: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+[data-hover-parallax-options="3d"] {
+	:global(.bg-parallax-clone-1),
+	:global(.bg-parallax-clone-2),
+	:global(.bg-parallax-clone-3) {
+		position: absolute;
+		width: 80%;
+		height: 80%;
+		margin: auto;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		overflow: hidden;
+		.img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+	:global(.bg-parallax-clone-2) {
+		width: 70%;
+		height: 70%;
+	}
+	:global(.bg-parallax-clone-1) {
+		width: 60%;
+		height: 60%;
+	}
+}
+
+// button
+.button {
+	
+}

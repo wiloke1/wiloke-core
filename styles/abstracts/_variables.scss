@@ -1,0 +1,63 @@
+// Fonts
+$font-primary: 'Open sans', sans-serif !default;
+$font-secondary: 'Montserrat', sans-serif !default;
+$font-tertiary: 'Lekton', sans-serif !default;
+
+// Font awesome
+$font-awesome: 'FontAwesome' !default;
+
+// Font weight
+$font-light: 300 !default;
+$font-normal: 400 !default;
+$font-bold: 700 !default;
+
+$round: 3px;
+
+// Color
+$color-primary: #426efc !default;
+$color-secondary: #ff7171 !default;
+$color-tertiary: #55df6f !default;
+$color-dark: #121113 !default;
+$color-light: #fff !default;
+$color-light-2: #e5e5e5 !default;
+$color-gray-1: #e5e5e5 !default;
+$color-gray-2: #949494 !default;
+$color-gray-3: #646464 !default;
+
+$color-success: #5cb85c !default;
+$color-warning: #f0ad4e !default;
+$color-danger: #ff7171 !default;
+$color-info: #5bc0de !default;
+
+// cubic berzier
+$cubic-1: cubic-bezier(0.77, 0, 0.175, 1);
+$cubic-2: cubic-bezier(0.85, 0, 0.15, 1);
+$cubic-3: cubic-bezier(0.17, 0.89, 0.27, 1.19);
+
+// Breakpoints
+$breakpoints: (
+  'tn': 320px,
+  'xs': 480px,
+  'sm': 768px,
+  'md': 992px,
+  'lg': 1200px
+);
+$social: (
+	'facebook': #325d94,
+	'twitter': #00aadb,
+	'tumblr': #2f4e6b,
+	'dribbble': #fb4087,
+	'youtube-play': #df2e1c,
+	'vk': #4c75a3,
+	'digg': #1b5891,
+	'reddit': #ff4500,
+	'linkedin': #1686b0,
+	'stumbleupon': #eb4924,
+	'google-plus': #db4437,
+	'vimeo-square': #63b3e4,
+	'instagram': #517fa4,
+	'pinterest': #cc1d24,
+	'behance': #1478ff,
+	'heart': #4bd1fa,
+	'github': #24292e
+);

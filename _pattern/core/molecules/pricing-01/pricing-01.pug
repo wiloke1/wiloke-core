@@ -1,0 +1,19 @@
+//- demo: true
+mixin corePricing01(args)
+	include cssmodule
+	+module('div', css.module, args)
+		- var args = item
+		header(class=css.header)
+			div(class=css.icon)!= set(args, 'icon', '<i class="pe-7s-tools"></i>')
+			h2(class=css.title)= set(args, 'title', 'Basic')
+		div(class=css.body)
+			span(class=css.price)
+				span(class=css.currency)= set(args, 'currency', '$')
+				span(class=css.amount)= set(args, 'amount', random(10, 90))
+				span(class=css.period)= set(args, 'period', 'mo')
+			div(class=css.list)!= set(args, 'list', '<ul><li>10GB Space amount</li><li>Unlimited users</li><li>30GB Bandwidth</li><li>Enhanced Security</li></ul>')
+		footer(class=css.footer)
+			+wil-btn('a', {
+				text: set(args, 'btnText', 'Button'),
+				modifier: set(args, 'btnModifier', args.modifier == 'feature' ? ['primary', 'lg', 'round', 'block'] : ['gray', 'lg', 'round', 'block'])
+			})

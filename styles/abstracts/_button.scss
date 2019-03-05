@@ -1,0 +1,381 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////																									////
+////	 __     __  __  __      ______  __  __  ______       ______ ______ __   __    					////
+////	/\ \  _ \ \/\ \/\ \    /\  __ \/\ \/ / /\  ___\     /\  == /\__  _/\ "-.\ \   					////
+////	\ \ \/ ".\ \ \ \ \ \___\ \ \/\ \ \  _"-\ \  __\     \ \  __\/_/\ \\ \ \-.  \  					////
+////	 \ \__/".~\_\ \_\ \_____\ \_____\ \_\ \_\ \_____\    \ \_____\\ \_\\ \_\\"\_\ 					////
+////	  \/_/   \/_/\/_/\/_____/\/_____/\/_/\/_/\/_____/     \/_____/ \/_/ \/_/ \/_/ 					////
+////																									////
+////																									////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////																									////
+//// 	BUTTON BY WILOKE																				////
+////	Version: 1.0.3																					////
+////	Website: wiloke.com																				////
+////																									////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+@function wil-btn($option) {
+	$optionDefault: (
+		display: inline-block,
+		border: 0,
+		box-shadow: none,
+		outline: none,
+		margin: 0,
+		text-align: center,
+		font-size: 14px,
+		padding: 10px 20px,
+		color: #000,
+		background-color: #eee,
+		transition: all 0.3s ease,
+		text-decoration: none,
+		vertical-align: middle,
+		overflow: hidden,
+		cursor: pointer,
+		// Hover
+		hover: (
+			background-color: #000,
+			color: #fff
+		),
+
+		// Modifier
+		modifier: (
+
+			// STYLE /////////////
+			// Primary
+			primary: (
+				background-color: #4aa8ff,
+				color: #fff,
+				// hover
+				hover: (
+					background-color: #000,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					background-color: #000,
+					color: #fff,
+				)
+			),
+
+			// Success
+			success: (
+				background-color: #5cb85c,
+				color: #fff,
+				// hover
+				hover: (
+					background-color: #449d44,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					background-color: #449d44,
+					color: #fff,
+				)
+			),
+
+			// Info
+			info: (
+				background-color: #5bc0de,
+				color: #fff,
+				// hover
+				hover: (
+					background-color: #31b0d5,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					background-color: #31b0d5,
+					color: #fff,
+				)
+			),
+
+			// Warning
+			warning: (
+				background-color: #f0ad4e,
+				color: #fff,
+				// hover
+				hover: (
+					background-color: #ec971f,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					background-color: #ec971f,
+					color: #fff,
+				)
+			),
+
+			// Danger
+			danger: (
+				background-color: #d9534f,
+				color: #fff,
+				// hover
+				hover: (
+					background-color: #c9302c,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					background-color: #c9302c,
+					color: #fff,
+				)
+			),
+
+			// Link
+			link: (
+				background-color: transparent,
+				color: #fe6565,
+				// hover
+				hover: (
+					background-color: transparent,
+					color: #fe6565,
+					text-decoration: underline,
+				),
+				// focus
+				focus: (
+					background-color: transparent,
+					color: #fe6565,
+				)
+			),
+			
+			// Dark
+			dark: (
+				background-color: #000,
+				color: #fff,
+				// hover
+				hover: (
+					background-color: #fe6565,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					background-color: #fe6565,
+					color: #fff,
+				)
+			),
+
+
+			// SIZE /////////////
+			// Extra Small
+			xs: (
+				padding: 6px 15px,
+				font-size: 12px,
+			),
+			// Small
+			sm: (
+				padding: 8px 15px,
+				min-width: 100px,
+				font-size: 12px,
+			),
+			// Medium
+			md: (
+				padding: 10px 20px,
+				min-width: 140px,
+				font-size: 14px,
+			),
+			// Large
+			lg: (
+				padding: 14px 24px,
+				min-width: 160px,
+				font-size: 16px,
+			),
+
+			// SHAPE /////////////
+			// square
+			square: (
+				border-radius: 0
+			),
+			// round
+			round: (
+				border-radius: 5px
+			),
+			// pill
+			pill: (
+				border-radius: 40px
+			),
+			
+
+			// BLOCK /////////////
+			block: (
+				display: block,
+				width: 100%
+			),
+
+			// DISABLED /////////////
+			disabled: (
+				opacity: 0.65,
+				cursor: not-allowed
+			)
+		),
+
+		// Enable & Disable modifier
+		toggleCss: enable,
+
+		// Enable & Disable modifier
+		toggleModifier: enable,
+	);
+	$options: extend($optionDefault, $option, true);
+	@return $options;
+}
+
+// Map deep get
+@function map-deep-get($map, $keys...) {
+	@each $key in $keys {
+		$map: map-get($map, $key);
+	}
+	@return $map;
+}
+
+
+// Map deep merge
+@function extend($map, $maps.../*, $deep */) {
+	$last: nth($maps, -1);
+	$deep: $last == true;
+	$max: if($deep, length($maps) - 1, length($maps));
+
+  	@for $i from 1 through $max {
+    	$current: nth($maps, $i);
+
+    	@if not $deep {
+      		$map: map-merge($map, $current);
+    	} @else {
+      		@each $key, $value in $current {
+
+	        	@if type-of($value) == "map" and type-of(map-get($map, $key)) == "map" {
+	          		$value: extend(map-get($map, $key), $value, true);
+	        	}
+
+	        	$map: map-merge($map, ($key: $value));
+	      	}
+    	}
+  	}
+
+  	@return $map;
+}
+
+@mixin wil-btn_css($getCss, $option) {
+	@if (type-of($getCss) == map) {
+		@each $property, $value in $getCss {
+			#{$property}: $value
+		}
+	}
+}
+
+@function map-remove-list($map, $list) {
+	$map: map-remove($map, nth($list, 1));
+	@for $i from 2 through length($list) {
+		$map: map-remove($map, nth($list, $i));
+	}
+	@return $map;
+}
+
+$pseudo-classes: (
+	'hover',
+	'focus',
+	'active',
+	'visited',
+);
+$sass-support: (
+	'extend'
+);
+$pseudo-elements: (
+	'after',
+	'before'
+);
+// Join pseudo classes + sass support + pseudo elements
+$btn-pseudo: join($pseudo-classes, $sass-support);
+$btn-pseudo: join($btn-pseudo, $pseudo-elements);
+$_modifierSeparator: '--';
+
+@mixin wil-btn_check_css($forPseudo, $toggle, $css, $cssPseudo, $el, $option) {
+	$self: wil-btn($option);
+	@if ((map-get($self, $toggle) == 'on') or (map-get($self, $toggle) == 'enable')) {
+
+		// Css default
+		@include wil-btn_css($css, $option);
+
+		// Css for pseudo classes + pseudo elements
+		@for $i from 1 through length($btn-pseudo) {
+			&:#{nth($btn-pseudo, $i)} {
+				@if (type-of(map-deep-get($cssPseudo, nth($btn-pseudo, $i))) == 'map') {
+					$wil-btn-pseudo-css: map-remove-list(map-get($cssPseudo, nth($btn-pseudo, $i)), $pseudo-elements);
+					@include wil-btn_css($wil-btn-pseudo-css, $option);
+				}
+			}
+		}
+
+		// Check pseudo classes has pseudo elements
+		@for $i from 1 through length($pseudo-classes) {
+			@for $j from 1 through length($pseudo-elements) {
+				&:#{nth($pseudo-classes, $i)} {
+					&:#{nth($pseudo-elements, $j)} {
+						@if (type-of(map-get($cssPseudo, nth($pseudo-classes, $i))) == 'map') {
+							@include wil-btn_css(map-deep-get($cssPseudo, nth($pseudo-classes, $i), nth($pseudo-elements, $j)), $option);
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	// Extend
+	@if $forPseudo == true {
+		@if map-get($cssPseudo, 'extend') {
+			@extend #{$el + $_modifierSeparator + map-get($cssPseudo, 'extend')};
+		}
+	} @else {
+		@if map-get($cssPseudo, 'extend') {
+			@extend .#{map-get($cssPseudo, 'extend')};
+		}
+	}
+}
+
+
+@mixin wil-btn_css_settings($el, $option) {
+	$self: wil-btn($option);
+	$wil-btn-css: map-remove-list($self, ('modifier', 'toggleModifier', 'toggleCss'));
+
+	// Remove pseudo classes + sass support + pseudo elements
+	$wil-btn-css-remove-pseudo: map-remove-list($wil-btn-css, $btn-pseudo);
+
+
+	@include wil-btn_check_css(false, 'toggleCss', $wil-btn-css-remove-pseudo, $wil-btn-css, $el, $option);
+
+
+	// Modifier All
+	$wil-btn-modifier: map-get($self, 'modifier');
+	
+	// Disabled
+	&[disabled] {
+		@include wil-btn_css(map-deep-get($self, 'modifier', 'disabled'), $option);
+	}
+
+	@if map-get($self, 'modifier') {
+		@for $i from 1 through length(map-keys(map-get($self, 'modifier'))) {
+			$wil-btn-modifier-all: map-get($wil-btn-modifier, nth(map-keys(map-get($self, 'modifier')), $i));
+			
+			// Remove pseudo classes + sass support + pseudo elements
+			$wil-btn-modifier-remove-pseudo: map-remove-list($wil-btn-modifier-all, $btn-pseudo);
+
+			// Modifier style
+			&#{$_modifierSeparator + nth(map-keys(map-get($self, 'modifier')), $i)} {
+
+				@include wil-btn_check_css(true, 'toggleModifier', $wil-btn-modifier-remove-pseudo, $wil-btn-modifier-all, $el, $option);
+
+			}
+		}
+	}
+}
+
+// Fn wil btn
+@mixin wil-btn($el, $option) {
+	#{$el} {
+		@include wil-btn_css_settings($el, $option);
+	}
+}

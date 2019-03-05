@@ -1,0 +1,18 @@
+//- demo: true
+mixin coreBreadcrumb(args)
+	include cssmodule
+	+module('div', css.module, args)
+		- let args = item
+
+
+		if (has(args.modifier, 'reverse'))
+			h2(class=css.title)= args.title || config.title.replace(/\b\w/g, l => l.toUpperCase())
+			ul(class=css.list)
+				li: a(href="#") Home
+				li: a(href="#")= args.list || config.title.replace(/\b\w/g, l => l.toUpperCase())
+
+		else
+			ul(class=css.list)
+				li: a(href="#") Home
+				li: a(href="#")= args.list || config.title.replace(/\b\w/g, l => l.toUpperCase())
+			h2(class=css.title)= args.title || config.title.replace(/\b\w/g, l => l.toUpperCase())

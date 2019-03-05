@@ -1,0 +1,14 @@
+//- demo: custom
+mixin wil-btn(tag, args)
+	if (tag == 'a')
+		+tag(tag, 'wil-btn', args)!= set(args, 'text', 'button')
+			if block
+				block
+	else if (tag == 'button')
+		+tag(tag, 'wil-btn', args)!= set(args, 'text', 'button')
+			if block
+				block
+	else if (tag == 'input')
+		+tag(tag, 'wil-btn', args)(value=set(args, 'text', 'button'))
+			if block
+				block

@@ -1,0 +1,23 @@
+:global {
+	.wil__image {
+		display: block;
+		background-size: cover;
+		background-position: 50% 50%;
+		overflow: hidden;
+		&:after {
+			content: '';
+			display: block;
+			padding-top: 100%;
+		}
+	}
+	.wil__image--4by3 {
+		&:after {
+			padding-top: 75%;
+		}
+	}
+	.wil__image--16by9 {
+		&:after {
+			padding-top: 56.25%;
+		}
+	}
+}

@@ -1,0 +1,22 @@
+:global {
+	/*Float*/
+	.wil-float-left {
+		float: left;
+	}
+
+	.rtl {
+		.wil-float-left {
+			float: right;
+		}
+	}
+
+	.wil-float-right {
+		float: right;
+	}
+
+	.rtl {
+		.wil-float-right {
+			float: left;
+		}
+	}
+}

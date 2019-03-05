@@ -1,0 +1,85 @@
+/* //--- coreGallery
+--------------------------------------------------------------------------------*/
+
+// module
+.module {
+	overflow: hidden;
+	@for $column from 1 through 5 {
+		&[data-column="#{$column}"] {
+			.col {
+				width: (100 / $column) * 1%;
+			}
+			&[data-type="firstLarge"] {
+				.col {
+					&:first-child {
+						width: (100 / $column * 2) * 1%;
+					}
+				}
+			}
+		}
+	}
+	@for $i from 1 through 3 {
+		$gap: $i * 10;
+		&[data-gap="#{$gap}"] {
+			.image {
+				top: $gap / 2 * 1px;
+				right: $gap / 2 * 1px;
+				bottom: $gap / 2 * 1px;
+				left: $gap / 2 * 1px;
+			}
+			.row {
+				margin: -$gap / 2 * 1px;
+			}
+		}
+	}
+	$ratios: (
+		4by3: pixelToPercent(4, 3),
+		16by9: pixelToPercent(16, 9)
+	);
+	@each $key, $val in $ratios {
+		&[data-ratio="#{$key}"] {
+			.imageWrapper:after {
+				padding-top: $val;
+			}
+		}
+	}
+}
+
+// row
+.row {
+	margin: -1px;
+	@include clearfix;
+}
+
+// col
+.col {
+	width: 100%;
+	float: left;
+}
+
+// imageWrapper
+.imageWrapper {
+	position: relative;
+	&:after {
+		content: '';
+		display: block;
+		padding-top: 100%;
+	}
+}
+
+// image
+.image {
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	bottom: 1px;
+	left: 1px;
+	composes: bg-cover from global;
+}
+
+// modifier round
+.round {
+	.image {
+		border-radius: 4px;
+	}
+}

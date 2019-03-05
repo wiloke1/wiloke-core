@@ -1,0 +1,16 @@
+//- demo: true
+mixin coreSwiper(args)
+	+module('div', args.thumbnails ? 'swiper-thumbnails__module' : 'swiper__module', args)(data-options=set(args, 'options'))
+		.swiper__inner.swiper-container
+			.swiper-wrapper
+				if block
+					block
+				else
+					p= random(random.text, 200)
+					p= random(random.text, 200)
+		if (args.pagination)
+			.swiper-pagination-custom
+		if (args.nextText || args.prevText)
+			.swiper-button-custom
+				.swiper-button-prev-custom!= set(args, 'prevText')
+				.swiper-button-next-custom!= set(args, 'nextText')

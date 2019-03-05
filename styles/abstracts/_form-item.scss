@@ -1,0 +1,380 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////																									////
+////	 __     __  __  __      ______  __  __  ______       ______ ______  ______  __    __    		////
+////	/\ \  _ \ \/\ \/\ \    /\  __ \/\ \/ / /\  ___\     /\  ___/\  __ \/\  == \/\ "-./  \   		////
+////	\ \ \/ ".\ \ \ \ \ \___\ \ \/\ \ \  _"-\ \  __\     \ \  __\ \ \/\ \ \  __<\ \ \-./\ \  		////
+////	 \ \__/".~\_\ \_\ \_____\ \_____\ \_\ \_\ \_____\    \ \_\  \ \_____\ \_\ \_\ \_\ \ \_\ 		////
+////	  \/_/   \/_/\/_/\/_____/\/_____/\/_/\/_/\/_____/     \/_/   \/_____/\/_/ /_/\/_/  \/_/			////
+////																									////
+////																									////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////																									////
+//// 	FORM ITEM BY WILOKE																				////
+////	Version: 1.0.0																				////
+////	Website: wiloke.com																				////
+////																									////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+@function wil-form-item($option) {
+	$optionDefault: (
+		box-shadow: none,
+		outline: none,
+		margin: 0,
+		border-radius: 0,
+		padding: 0 15px,
+		line-height: 46px,
+		border: 1px solid #ccc,
+		color: #000,
+		font-size: 14px,
+		vertical-align: middle,
+
+		placeholder: (
+			color: #000,
+		),
+
+
+		// Modifier
+		modifier: (
+
+			// STYLE /////////////
+			// Primary
+			primary: (
+				border: 1px solid #fe6565,
+				color: #fff,
+				// hover
+				hover: (
+					border: 1px solid #000,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					border: 1px solid #000,
+					color: #fff,
+				)
+			),
+
+			// Success
+			success: (
+				border: 1px solid #5cb85c,
+				color: #fff,
+				// hover
+				hover: (
+					border: 1px solid #449d44,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					border: 1px solid #449d44,
+					color: #fff,
+				)
+			),
+
+			// Info
+			info: (
+				border: 1px solid #5bc0de,
+				color: #fff,
+				// hover
+				hover: (
+					border: 1px solid #31b0d5,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					border: 1px solid #31b0d5,
+					color: #fff,
+				)
+			),
+
+			// Warning
+			warning: (
+				border: 1px solid #f0ad4e,
+				color: #fff,
+				// hover
+				hover: (
+					border: 1px solid #ec971f,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					border: 1px solid #ec971f,
+					color: #fff,
+				)
+			),
+
+			// Danger
+			danger: (
+				border: 1px solid #d9534f,
+				color: #fff,
+				// hover
+				hover: (
+					border: 1px solid #c9302c,
+					color: #fff,
+				),
+				// focus
+				focus: (
+					border: 1px solid #c9302c,
+					color: #fff,
+				)
+			),
+
+
+			// SIZE /////////////
+			// Extra Small
+			xs: (
+				padding: 0 15px,
+				line-height: 30px,
+				font-size: 12px,
+			),
+			// Small
+			sm: (
+				padding: 0 15px,
+				line-height: 40px,
+				font-size: 12px,
+			),
+			// Medium
+			md: (
+				padding: 0 20px,
+				line-height: 50px,
+				font-size: 14px,
+			),
+			// Large
+			lg: (
+				padding: 0 24px,
+				line-height: 60px,
+				font-size: 16px,
+			),
+
+			// SHAPE /////////////
+			// square
+			square: (
+				border-radius: 0
+			),
+			// round
+			round: (
+				border-radius: 5px
+			),
+			// pill
+			pill: (
+				border-radius: 40px
+			),
+			
+
+			// BLOCK /////////////
+			block: (
+				display: block,
+				width: 100%
+			),
+
+			// DISABLED /////////////
+			disabled: (
+				opacity: 0.65,
+				cursor: not-allowed
+			)
+		),
+
+		// Enable & Disable modifier
+		toggleCss: enable,
+
+		// Enable & Disable modifier
+		toggleModifier: disable,
+	);
+	$options: extend($optionDefault, $option, true);
+	@return $options;
+}
+
+// Map deep get
+@function map-deep-get($map, $keys...) {
+	@each $key in $keys {
+		$map: map-get($map, $key);
+	}
+	@return $map;
+}
+
+
+// Map deep merge
+@function extend($map, $maps.../*, $deep */) {
+	$last: nth($maps, -1);
+	$deep: $last == true;
+	$max: if($deep, length($maps) - 1, length($maps));
+
+  	@for $i from 1 through $max {
+    	$current: nth($maps, $i);
+
+    	@if not $deep {
+      		$map: map-merge($map, $current);
+    	} @else {
+      		@each $key, $value in $current {
+
+	        	@if type-of($value) == "map" and type-of(map-get($map, $key)) == "map" {
+	          		$value: extend(map-get($map, $key), $value, true);
+	        	}
+
+	        	$map: map-merge($map, ($key: $value));
+	      	}
+    	}
+  	}
+
+  	@return $map;
+}
+
+@mixin placeholder {
+  $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
+  @each $placeholder in $placeholders {
+    &:#{$placeholder}-placeholder {
+      @content;
+    }
+  }
+}
+
+@mixin wil-form-item_css($getCss, $option) {
+	@if (type-of($getCss) == map) {
+		@each $property, $value in $getCss {
+			#{$property}: $value
+		}
+	}
+}
+
+@function map-remove-list($map, $list) {
+	$map: map-remove($map, nth($list, 1));
+	@for $i from 2 through length($list) {
+		$map: map-remove($map, nth($list, $i));
+	}
+	@return $map;
+}
+
+$pseudo-classes: (
+	'hover',
+	'focus',
+	'active',
+	'visited',
+);
+$sass-support: (
+	'extend'
+);
+$pseudo-elements: (
+	'after',
+	'before'
+);
+// Join pseudo classes + sass support + pseudo elements
+$wil-pseudo: join($pseudo-classes, $sass-support);
+$wil-pseudo: join($wil-pseudo, $pseudo-elements);
+$_modifierSeparator: '--';
+
+@mixin wil-form-item_check_css($forPseudo, $toggle, $css, $cssPseudo, $el, $option) {
+	$self: wil-form-item($option);
+	@if ((map-get($self, $toggle) == 'on') or (map-get($self, $toggle) == 'enable')) {
+
+		// Css default
+		@include wil-form-item_css($css, $option);
+
+		@include placeholder {
+			$wil-placeholder: map-get(wil-form-item($option), 'placeholder');
+			@include wil-form-item_css($wil-placeholder, $option);
+		}
+
+		// Css for pseudo classes + pseudo elements
+		@for $i from 1 through length($wil-pseudo) {
+			&:#{nth($wil-pseudo, $i)} {
+				@if (type-of(map-deep-get($cssPseudo, nth($wil-pseudo, $i))) == 'map') {
+					$wil-form-item-pseudo-css: map-remove-list(map-get($cssPseudo, nth($wil-pseudo, $i)), $pseudo-elements);
+					$wil-form-item-pseudo-css: map-remove($wil-form-item-pseudo-css, 'placeholder');
+					@include wil-form-item_css($wil-form-item-pseudo-css, $option);
+
+					@include placeholder {
+						$wil-placeholder-pseudo: map-get($cssPseudo, nth($wil-pseudo, $i));
+						$wil-placeholder-pseudo: map-get($wil-placeholder-pseudo, 'placeholder');
+						@include wil-form-item_css($wil-placeholder-pseudo, $option);
+					}
+				}
+			}
+		}
+
+		// Check pseudo classes has pseudo elements
+		@for $i from 1 through length($pseudo-classes) {
+			@for $j from 1 through length($pseudo-elements) {
+				&:#{nth($pseudo-classes, $i)} {
+					&:#{nth($pseudo-elements, $j)} {
+						@if (type-of(map-get($cssPseudo, nth($pseudo-classes, $i))) == 'map') {
+							@include wil-form-item_css(map-deep-get($cssPseudo, nth($pseudo-classes, $i), nth($pseudo-elements, $j)), $option);
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	// Extend
+	@if $forPseudo == true {
+		@if map-get($cssPseudo, 'extend') {
+			@extend #{$el + $_modifierSeparator + map-get($cssPseudo, 'extend')};
+		}
+	} @else {
+		@if map-get($cssPseudo, 'extend') {
+			@extend .#{map-get($cssPseudo, 'extend')};
+		}
+	}
+}
+
+
+@mixin wil-form-item_css_settings($el, $option) {
+	$self: wil-form-item($option);
+	$wil-form-item-css: map-remove-list($self, ('modifier', 'toggleModifier', 'toggleCss', 'placeholder'));
+
+	// Remove pseudo classes + sass support + pseudo elements
+	$wil-form-item-css-remove-pseudo: map-remove-list($wil-form-item-css, $wil-pseudo);
+
+
+	@include wil-form-item_check_css(false, 'toggleCss', $wil-form-item-css-remove-pseudo, $wil-form-item-css, $el, $option);
+
+
+	// Modifier All
+	$wil-form-item-modifier: map-get($self, 'modifier');
+	
+	// Disabled
+	&[disabled] {
+		@include wil-form-item_css(map-deep-get($self, 'modifier', 'disabled'), $option);
+	}
+
+	@if map-get($self, 'modifier') {
+		@for $i from 1 through length(map-keys(map-get($self, 'modifier'))) {
+			$wil-form-item-modifier-all: map-get($wil-form-item-modifier, nth(map-keys(map-get($self, 'modifier')), $i));
+			
+			// Remove pseudo classes + sass support + pseudo elements
+			$wil-form-item-modifier-remove-pseudo: map-remove-list($wil-form-item-modifier-all, $wil-pseudo);
+
+			// Modifier style
+			&#{$_modifierSeparator + nth(map-keys(map-get($self, 'modifier')), $i)} {
+
+				@include wil-form-item_check_css(true, 'toggleModifier', $wil-form-item-modifier-remove-pseudo, $wil-form-item-modifier-all, $el, $option);
+
+			}
+		}
+	}
+}
+
+@mixin wil-form-item_css_fix($option) {
+	input:not([type="button"]):not([type="submit"]):not([type="radio"]):not([type="checkbox"]):not([type="color"]),
+	textarea {
+		-webkit-appearance: none;
+		appearance: none;
+	}
+	input[type="checkbox"],
+	input[type="radio"] {
+		width: auto !important;
+	}
+}
+
+// Fn wil form item
+@mixin wil-form-item($el, $option) {
+	#{$el} {
+		@include wil-form-item_css_settings($el, $option);
+	}
+	// Fix css form item
+	@include wil-form-item_css_fix($option);
+}
+

@@ -1,0 +1,15 @@
+//- demo: true
+mixin coreCheckbox(args)
+	include cssmodule
+
+	+module('label', css.module, args)
+		- let args = item
+		
+		//- code
+		input(class=css.input, type=set(args, 'type', 'checkbox'))
+		span(class=css.icon)
+			i.fa.fa-check
+		if (set(args, 'text'))
+			span(class=css.text)= set(args, 'text')
+		
+	include cssmodule

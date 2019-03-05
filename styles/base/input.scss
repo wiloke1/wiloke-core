@@ -1,0 +1,17 @@
+:global {
+	input[type="search"],
+	input[type="text"],
+	input[type="url"],
+	input[type="number"],
+	input[type="password"],
+	input[type="email"],
+	input[type="file"] {
+		appearance: none;
+		border-radius: 0;
+	}
+	textarea {
+		vertical-align: middle;
+		appearance: none;
+		border-radius: 0;
+	}
+}

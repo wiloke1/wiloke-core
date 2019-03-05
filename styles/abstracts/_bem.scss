@@ -1,0 +1,204 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+////	          _____                    _____                    _____          
+////	         /\    \                  /\    \                  /\    \         
+////	        /::\    \                /::\    \                /::\____\        
+////	       /::::\    \              /::::\    \              /::::|   |        
+////	      /::::::\    \            /::::::\    \            /:::::|   |        
+////	     /:::/\:::\    \          /:::/\:::\    \          /::::::|   |        
+////	    /:::/__\:::\    \        /:::/__\:::\    \        /:::/|::|   |        
+////	   /::::\   \:::\    \      /::::\   \:::\    \      /:::/ |::|   |        
+////	  /::::::\   \:::\    \    /::::::\   \:::\    \    /:::/  |::|___|______  
+////	 /:::/\:::\   \:::\ ___\  /:::/\:::\   \:::\    \  /:::/   |::::::::\    \ 
+////	/:::/__\:::\   \:::|    |/:::/__\:::\   \:::\____\/:::/    |:::::::::\____\
+////	\:::\   \:::\  /:::|____|\:::\   \:::\   \::/    /\::/    / ~~~~~/:::/    /
+////	 \:::\   \:::\/:::/    /  \:::\   \:::\   \/____/  \/____/      /:::/    / 
+////	  \:::\   \::::::/    /    \:::\   \:::\    \                  /:::/    /  
+////	   \:::\   \::::/    /      \:::\   \:::\____\                /:::/    /   
+////	    \:::\  /:::/    /        \:::\   \::/    /               /:::/    /    
+////	     \:::\/:::/    /          \:::\   \/____/               /:::/    /     
+////	      \::::::/    /            \:::\    \                  /:::/    /      
+////	       \::::/    /              \:::\____\                /:::/    /       
+////	        \::/____/                \::/    /                \::/    /        
+////	         ~~                       \/____/                  \/____/         
+////                                                                     
+////                                                                     
+////        BEM BY WILOKE	
+////		Version: 2.1.5
+////		Website: wiloke.com	                                                            
+////                                                                     
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$bemSettings: (
+	elementSeparator: '__',
+	modifierSeparator: '--'
+) !default;
+
+$elementSeparator: map-get($bemSettings, 'elementSeparator');
+$modifierSeparator: map-get($bemSettings, 'modifierSeparator');
+$pseudoClass: ':';
+$cssCombinators: '>', '+', '~';
+
+
+@function selectorToStr($selector) {
+	$selector: inspect($selector);
+	$selector: str-slice($selector, 2, -2);
+	@return $selector;
+}
+
+@function getB($selector, $type) {
+	$selector: selectorToStr($selector);
+	$start: str-index($selector, $type) - 1;
+	@return str-slice($selector, 0, $start);
+}
+
+@function to-string($list, $glue: '', $is-nested: false) {
+	$result: null;
+	@for $i from 1 through length($list) {
+		$e: nth($list, $i);
+		@if type-of($e) == list {
+			$result: $result#{to-string($e, $glue, true)};
+		}
+		@else {
+			$result: if($i != length($list) or $is-nested, $result#{$e}#{$glue}, $result#{$e});
+		}
+	}
+	@return $result;
+}
+
+@mixin b($block) {
+	.#{$block} {
+		@content;
+	}
+}
+
+@function css_combinators($elClass, $joinSeparator, $block, $type, $combinators) {
+    @each $combinator in $combinators {
+        @if (type-of(str-index($type, $combinator)) == 'number') {
+            $elClass1: str-slice($type, 1, str-index($type, $combinator) - 1);
+            $elClass2: str-slice($type, str-index($type, $combinator) + 1, str-length($type));
+            $elClass: $block + $joinSeparator + $elClass1 + $combinator + $block + $joinSeparator + $elClass2;
+        } 
+        @if (type-of(str-index($type, $combinator + ' ')) == 'number') or (type-of(str-index($type, ' ' + $combinator + ' ')) == 'number') {
+            $elClass1: str-slice($type, 1, str-index($type, $combinator) - 1);
+            $elClass2: str-slice($type, str-index($type, $combinator) + 2, str-length($type));
+            $elClass: $block + $joinSeparator + $elClass1 + $combinator + $block + $joinSeparator + $elClass2;
+        }
+    }
+    @return $elClass;
+}
+
+@function css_combinators2($elClass, $Separator, $block, $element, $combinators) {
+    @each $combinator in $combinators {
+        @if (type-of(str-index($element, $combinator)) == 'number') {
+            $elClass1: str-slice($element, 1, str-index($element, $combinator) - 1);
+            $elClass2: str-slice($element, str-index($element, $combinator) + 1, str-length($element));
+            $elClass: $Separator + $elClass1 + $combinator + $block + $Separator + $elClass2;
+        }
+        @if (type-of(str-index($element, $combinator + ' ')) == 'number') or (type-of(str-index($element, ' ' + $combinator + ' ')) == 'number') {
+            $elClass1: str-slice($element, 1, str-index($element, $combinator) - 1);
+            $elClass2: str-slice($element, str-index($element, $combinator) + 2, str-length($element));
+            $elClass: $Separator + $elClass1 + $combinator + $block + $Separator + $elClass2;
+        }
+    }
+    @return $elClass;
+}
+
+@mixin contentCheck($joinSeparator, $check, $type) {
+	$block: getB(&, $check);
+	@if (type-of(str-index($block, ' ')) == 'number') {
+		$block: str-slice($block, str-index($block, ' ') + 1, str-length($block));
+	}
+    
+    $elClass: css_combinators($block + $joinSeparator + $type, $joinSeparator, $block, $type, $cssCombinators);
+    
+
+	@at-root {
+		& {
+			#{$elClass} {
+				@content;
+			}
+		}
+	}
+}
+
+@mixin contentCheck2($joinSeparator, $check, $type) {
+	$block: getB(&, ' ' + $check);
+	@if (type-of(str-index($block, ' ')) == 'number') {
+		$block: str-slice($block, str-index($block, ' ') + 1, str-length($block));
+	}
+	@at-root {
+		#{$block + $check} {
+			#{$block + $joinSeparator + $type} {
+				@content;
+			}
+		}
+	}
+}
+
+@mixin e($element) {
+	@if str-index(selectorToStr(&), $modifierSeparator) {
+        @include contentCheck($elementSeparator, $modifierSeparator, $element) {
+            @content;
+        }
+	} @else if str-index(selectorToStr(&), $elementSeparator) {
+        @include contentCheck($elementSeparator, $elementSeparator, $element) {
+            @content;
+        }
+    } @else if str-index(selectorToStr(&), $pseudoClass) {
+        @include contentCheck($elementSeparator, $pseudoClass, $element) {
+            @content;
+        }
+	} @else if str-index(selectorToStr(&), nth($cssCombinators, 1)) {
+		@include contentCheck2($elementSeparator, nth($cssCombinators, 1), $element) {
+			@content;
+		}
+	} @else if str-index(selectorToStr(&), nth($cssCombinators, 2)) {
+		@include contentCheck2($elementSeparator, nth($cssCombinators, 2), $element) {
+			@content;
+		}
+	} @else if str-index(selectorToStr(&), nth($cssCombinators, 3)) {
+		@include contentCheck2($elementSeparator, nth($cssCombinators, 3), $element) {
+			@content;
+		}
+	} @else {
+        $parent: to-string('-', &, ' ');
+        $block: str-slice($parent, str-index($parent, '-.') + 1, str-length($parent));
+        @if (type-of(str-index($parent, ' .')) == 'number') {
+            $block: str-slice($parent, str-index($parent, ' .') + 1, str-length($parent));
+        }
+        $elClass: css_combinators2($elementSeparator + $element, $elementSeparator, $block, $element, $cssCombinators);
+
+        &#{$elClass} {
+            @content;
+        }
+	}
+}
+
+@mixin m($modifier) {
+	@if str-index(selectorToStr(&), $modifierSeparator) {
+        @include contentCheck($modifierSeparator, $modifierSeparator, $modifier) {
+            @content;
+        }
+	} @else {
+        $parent: to-string('-', &, ' ');
+        $block: str-slice($parent, str-index($parent, '-.') + 1, str-length($parent));
+        @if (type-of(str-index($parent, ' .')) == 'number') {
+            $block: str-slice($parent, str-index($parent, ' .') + 1, str-length($parent));
+        }
+        $elClass: css_combinators2($modifierSeparator + $modifier, $modifierSeparator, $block, $modifier, $cssCombinators);
+
+        &#{$elClass} {
+            @content;
+        }
+	}
+}
+
+@mixin o($otherModifier) {
+	@at-root {
+		&.#{$otherModifier} {
+			@content;
+		}
+	}
+}

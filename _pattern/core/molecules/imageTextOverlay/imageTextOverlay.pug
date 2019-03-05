@@ -1,0 +1,19 @@
+//- demo: true
+mixin coreImagetextoverlay(args)
+	include cssmodule
+
+	+module('div', css.module, args)
+		- let args = item
+		
+		//- code
+		//- Args: tag, src, addClass, href
+		+coreImage({
+			src: set(args, 'image', `http://placeimg.com/${random(300, 400)}/300/any`),
+			addClass: css.image
+		})
+		div(class=css.body)
+			h2(class=css.title)= set(args, 'title', random(random.title))
+			div(class=css.text)= set(args, 'text', random(random.text, 50))
+		
+		
+	include cssmodule

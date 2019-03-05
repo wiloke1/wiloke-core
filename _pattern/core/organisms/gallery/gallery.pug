@@ -1,0 +1,26 @@
+//- demo: true
+mixin coreGallery(args)
+	include cssmodule
+
+	+module('div', css.module, args)
+		-
+			let args = item
+			const defautGallery = [
+				"http://via.placeholder.com/400x400",
+				"http://via.placeholder.com/400x400",
+			]
+			const gallery = set(args, 'gallery', defautGallery)
+		
+		//- code
+		div(class=css.row)
+
+			each image in gallery
+				div(class=css.col)
+					div(class=css.imageWrapper)
+						div(class=css.image, style=`background-image: url(${image})`)
+		
+	include cssmodule
+
+//- data-type: firstLarge
+//- data-column: Number
+//- data-gap: Number

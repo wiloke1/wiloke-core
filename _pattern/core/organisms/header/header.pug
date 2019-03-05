@@ -1,0 +1,18 @@
+//- demo: true
+mixin test_core-header(args)
+	include cssmodule
+	include data
+	+module('header', css.module, args)
+		div.container
+			div(class=css.logo)
+				a(href="#"): img(src="http://via.placeholder.com/80x30", alt="")
+
+			+menu('.header-01__navigation', {
+				menuClass: 'header-01__menu',
+				data: menu,
+				submenu: {
+					class: 'sub-menu',
+					parentClass: 'menu-item-has-children'
+				}
+			})
+				span.toggle-menu Menu

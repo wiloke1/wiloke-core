@@ -1,0 +1,68 @@
+@function map-deep-get($map, $keys...) {
+	@each $key in $keys {
+		$map: map-get($map, $key);
+	}
+	@return $map;
+}
+@mixin colMultiple($el) {
+	$colMultiple: (
+		col: 1 2 3 4 6,
+		breakpoints: (
+			sm: 768px,
+			md: 992px,
+			lg: 1200px
+		)
+	);
+	#{$el} {
+		@each $col in map-deep-get($colMultiple, 'col') {
+			$nth: 12/$col;
+			$sm: map-deep-get($colMultiple, 'breakpoints', 'sm');
+			$md: map-deep-get($colMultiple, 'breakpoints', 'md');
+			$lg: map-deep-get($colMultiple, 'breakpoints', 'lg');
+			.col-xs-#{$col} {
+				&:nth-child(#{$nth}n+1) {
+					clear: left;
+				}
+			}
+			@media (min-width: $sm) {
+				.col-xs-#{$col}[class*="col-sm-"] {
+					&:nth-child(#{$nth}n+1) {
+						clear: none;
+					}
+				}
+				.col-sm-#{$col}[class*="col-sm-"] {
+					&:nth-child(#{$nth}n+1) {
+						clear: left;
+					}
+				}
+			}
+			@media (min-width: $md) {
+				.col-xs-#{$col}[class*="col-md-"],
+				.col-sm-#{$col}[class*="col-md-"] {
+					&:nth-child(#{$nth}n+1) {
+						clear: none;
+					}
+				}
+				.col-md-#{$col}[class*="col-md-"] {
+					&:nth-child(#{$nth}n+1) {
+						clear: left;
+					}
+				}
+			}
+			@media (min-width: $lg) {
+				.col-xs-#{$col}[class*="col-lg-"],
+				.col-sm-#{$col}[class*="col-lg-"],
+				.col-md-#{$col}[class*="col-lg-"] {
+					&:nth-child(#{$nth}n+1) {
+						clear: none;
+					}
+				}
+				.col-lg-#{$col}[class*="col-lg-"] {
+					&:nth-child(#{$nth}n+1) {
+						clear: left;
+					}
+				}
+			}
+		}
+	}
+}

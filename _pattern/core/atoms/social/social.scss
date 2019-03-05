@@ -1,0 +1,109 @@
+/* //--- coreSocial
+--------------------------------------------------------------------------------*/
+
+// module
+.module {
+	margin: -4px;
+}
+
+// item
+.item {
+	display: inline-block;
+	padding: 4px;
+}
+
+// icon
+.icon {
+	display: inline-block;
+	color: $color-dark;
+	transition: all 0.3s ease;
+}
+
+// modifier border
+.border {
+	.icon {
+		@include size(50px);
+		line-height: 50px;
+		text-align: center;
+		border: 1px solid $color-gray-2;
+		font-size: 18px;
+		&:hover {
+			background-color: $color-primary;
+			border-color: transparent;
+			color: $color-light;
+		}
+	}
+}
+
+// modifier style2
+.style2 {
+	.icon {
+		@include size(50px);
+		line-height: 50px;
+		text-align: center;
+		background-color: $color-gray-2;
+		font-size: 18px;
+		&:hover {
+			background-color: $color-primary;
+			color: $color-light;
+		}
+	}
+}
+
+// modifier color
+.color {
+	@each $key, $val in $social {
+		:global(.fa-#{$key}) {
+			color: $val;
+		}
+	}
+}
+
+// modifier hoverBgColor
+.hoverBgColor {
+	.icon {
+		@include size(50px);
+		line-height: 50px;
+		text-align: center;
+		background-color: $color-gray-2;
+		font-size: 18px;
+	}
+	@each $key, $val in $social {
+		:global(.fa-#{$key}) {
+			&:hover {
+				background-color: $val;
+				color: $color-light;
+			}
+		}
+	}
+}
+
+
+// modifier bgColor
+.bgColor {
+	.icon {
+		@include size(50px);
+		line-height: 50px;
+		text-align: center;
+		background-color: $color-gray-2;
+		font-size: 18px;
+	}
+	@each $key, $val in $social {
+		:global(.fa-#{$key}) {
+			background-color: $val;
+			color: $color-light;
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+}
+
+
+// modifier bgDark
+.bgDark {
+	.icon {
+		background-color: $color-dark;
+		color: $color-light;
+	}
+}

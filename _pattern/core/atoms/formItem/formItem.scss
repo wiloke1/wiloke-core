@@ -1,0 +1,19 @@
+/* //--- coreFormitem
+--------------------------------------------------------------------------------*/
+
+// module
+.module {
+	margin-bottom: 20px;
+	input {
+		display: block;
+		width: 100%;
+	}
+}
+
+// label
+.label {
+	display: block;
+	font-size: 14px;
+	color: $color-dark-1;
+	margin-bottom: 6px;
+}

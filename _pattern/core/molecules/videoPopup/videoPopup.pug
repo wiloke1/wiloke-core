@@ -1,0 +1,25 @@
+//- demo: true
+mixin coreVideopopup(args)
+	include cssmodule
+
+	+module('div', css.module, args)
+		- let args = item
+		
+		div(class=css.media)
+			div(class=css.overlay)
+			//- Args: tag, src, addClass, href
+			+coreImage({
+				src: set(args, 'img', 'http://via.placeholder.com/800x400'),
+				addClass: css.img
+			})
+			a(href=set(args, 'popup', 'https://vimeo.com/45830194'), class=css.button, class="js-video-popup")
+				if block
+					block
+				else
+					include cssmodule
+					div(class=css.icon)
+						i(class=set(args, "icon", "fa fa-play"))
+		
+		
+		
+	include cssmodule

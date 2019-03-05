@@ -1,0 +1,86 @@
+/* //--- test_core-header
+--------------------------------------------------------------------------------*/
+
+// module
+.module {
+	border-bottom: 1px solid #eee;
+	:global(.container) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		&:before,
+		&:after {
+			display: none;
+		}
+	}
+}
+
+// logo
+.logo {
+	content: empty;
+}
+
+
+:global {
+	@include wilMenu('.header-01__navigation', (
+		menuClass: 'header-01__menu',
+		theme: 'style2',
+		breakpoint: 1200,
+		css: (
+			color: $color-dark,
+			font-family: $font-secondary,
+			font-size: 16px,
+			padding: 30px 35px,
+			hover: (
+				color: $color-primary
+			),
+			current: (
+				color: $color-primary
+			)
+		),
+		arrow: (
+			use: 'FontAwesome',
+			icon: 'fa-angle-down'
+		),
+		subMenu: (
+			width: 200,
+			class: 'sub-menu',
+			parentClass: 'menu-item-has-children',
+			align: 'right',
+			position: 'right',
+			css: (
+				color: $color-dark,
+				hover: (
+					color: $color-primary
+				),
+				current: (
+					color: $color-primary
+				)
+			),
+			arrow: (
+				use: 'FontAwesome',
+				icon: 'fa-angle-right'
+			),
+			animate: (
+				time: 300,
+				easing: easeOutBack,
+				effect: slideDown
+			)
+		),
+		menuMobile: (
+			toggleClass: 'active',
+			classButtonToggle: 'toggle-menu',
+			theme: 'style1',
+			css: (
+				font-size: 20px
+			),
+			arrow: (
+				use: 'FontAwesome',
+				icon: 'fa-caret-down'
+			)
+		),
+		responsiveByJavascript: (
+			enable: false
+		)
+	));
+}

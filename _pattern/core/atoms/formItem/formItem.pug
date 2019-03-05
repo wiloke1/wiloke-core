@@ -1,0 +1,13 @@
+//- demo: true
+mixin coreFormitem(args)
+	include cssmodule
+
+	+module('div', css.module, args)
+		- let args = item
+		
+		//- code
+		label(class=css.label, for=set(args, 'name', 'name'))= set(args, 'label', 'Your name')
+		input(type="text", value=set(args, 'value'), name=set(args, 'name', 'name'))
+		
+		
+	include cssmodule
