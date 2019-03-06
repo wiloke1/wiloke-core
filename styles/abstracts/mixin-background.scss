@@ -1,0 +1,9 @@
+@mixin useBackground {
+	.bg-cover {
+		background-size: cover;
+		background-position: 50% 50%;
+	}
+	.bg-fixed {
+		background-attachment: fixed;
+	}
+}

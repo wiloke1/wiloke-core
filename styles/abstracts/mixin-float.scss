@@ -1,21 +1,20 @@
-:global {
-	/*Float*/
-	.wil-float-left {
+@mixin useFloat {
+	.wil-fl {
 		float: left;
 	}
 
 	.rtl {
-		.wil-float-left {
+		.wil-fl {
 			float: right;
 		}
 	}
 
-	.wil-float-right {
+	.wil-fr {
 		float: right;
 	}
 
 	.rtl {
-		.wil-float-right {
+		.wil-fr {
 			float: left;
 		}
 	}

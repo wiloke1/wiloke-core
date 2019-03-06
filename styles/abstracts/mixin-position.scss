@@ -1,4 +1,4 @@
-:global {
+@mixin usePosition {
 	.pos-r {
 		position: relative !important;
 	}
