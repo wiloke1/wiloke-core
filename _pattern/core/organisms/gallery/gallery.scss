@@ -77,6 +77,11 @@
 	composes: bg-cover from global;
 }
 
+// viewAll
+.viewAll {
+	@extend .image;
+}
+
 // modifier round
 .round {
 	.image {

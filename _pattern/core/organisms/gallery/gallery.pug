@@ -14,10 +14,15 @@ mixin coreGallery(args)
 		//- code
 		div(class=css.row)
 
-			each image in gallery
+			- for(let i = 0; i < gallery.length; i++)
+				- const image = gallery[i];
 				div(class=css.col)
 					div(class=css.imageWrapper)
 						div(class=css.image, style=`background-image: url(${image})`)
+						if block
+							if (i === gallery.length - 1)
+								div(class=css.viewAll)
+									block
 		
 	include cssmodule
 
