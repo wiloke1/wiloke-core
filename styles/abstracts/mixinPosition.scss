@@ -1,0 +1,135 @@
+// Constructor
+// @params $option: object
+@function positionConstructor($opt: ()) {
+	$defaultOption: (
+		vertical: null, // start, center, end
+		horizontal: null, // start, center, end
+		position: absolute,
+		top: 0,
+		right: 0,
+		left: 0,
+		bottom: 0
+	);
+	$options: map-merge($defaultOption, $opt);
+	@return $options;
+}
+  
+@function removeDefaultOpt($obj) {
+	@return map-remove($obj, "position", "top", "left", "right", "bottom" "transform", "vertical", "horizontal");
+}
+  
+@mixin mapObjToCssPosition($obj) {
+	$vertical: map-get($obj, "vertical");
+	$horizontal: map-get($obj, "horizontal");
+	$newObj: $obj;
+	@if ($vertical == "center") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			top: 50%,
+			transform: translateY(-50%)
+		));
+	} @else if ($vertical == "start") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			top: 0
+		));
+	} @else if ($vertical == "end") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			bottom: 0
+		));
+	}
+	@if ($horizontal == "center") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			left: 50%,
+			transform: translateX(-50%)
+		));
+	} @else if ($horizontal == "start") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			left: 0
+		));
+	} @else if ($horizontal == "end") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			right: 0
+		));
+	}
+	@if ($vertical == "center" and $horizontal == "center") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			top: 50%,
+			left: 50%,
+			transform: translate(-50%, -50%)
+		));
+	} @else if ($vertical == "start" and $horizontal == "start") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			top: 0,
+			left: 0
+		));
+	} @else if ($vertical == "end" and $horizontal == "end") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			bottom: 0,
+			right: 0
+		));
+	} @else if ($vertical == "center" and $horizontal == "start") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			top: 50%,
+			left: 0,
+			transform: translateY(-50%)
+		));
+	} @else if ($vertical == "center" and $horizontal == "end") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			top: 50%,
+			right: 0,
+			transform: translateY(-50%)
+		));
+	} @else if ($vertical == "start" and $horizontal == "center") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			top: 0,
+			left: 50%,
+			transform: translateX(-50%)
+		));
+	} @else if ($vertical == "end" and $horizontal == "center") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			bottom: 0,
+			left: 50%,
+			transform: translateX(-50%)
+		));
+	} @else if ($vertical == "end" and $horizontal == "start") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			bottom: 0,
+			left: 0
+		));
+	} @else if ($vertical == "start" and $horizontal == "end") {
+		$newObj: map-merge(removeDefaultOpt($obj), (
+			position: absolute,
+			top: 0,
+			right: 0
+		));
+	}
+	@each $key, $val in $newObj {
+		#{$key}: $val;
+	}
+}
+  
+@mixin position($args, $opt: ()) {
+	$options: ();
+	@if (type-of($args) == "map") {
+		$options: positionConstructor($args);
+		@include mapObjToCssPosition($options);
+	} @else if (type-of($args) == "string") {
+		$options: positionConstructor($opt);
+		#{$args} {
+			@include mapObjToCssPosition($options);
+		}
+	}
+}
