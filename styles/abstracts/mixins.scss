@@ -37,12 +37,12 @@
 }
 
 @mixin placeholder {
-	$placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
-	@each $placeholder in $placeholders {
-		&:#{$placeholder}-placeholder {
-			@content;
-		}
-	}
+	&::-webkit-input-placeholder,
+    &:-moz-placeholder,
+    &::-moz-placeholder,
+    &:-ms-input-placeholder {
+        @content;
+    }
 }
 
 @mixin text-ellipsis {

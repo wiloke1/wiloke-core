@@ -80,6 +80,9 @@
 // viewAll
 .viewAll {
 	@extend .image;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
 }
 
 // modifier round

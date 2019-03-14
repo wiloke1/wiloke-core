@@ -221,7 +221,7 @@
   	@return $map;
 }
 
-@mixin placeholder {
+@mixin formplaceholder {
   $placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
   @each $placeholder in $placeholders {
     &:#{$placeholder}-placeholder {
@@ -271,7 +271,7 @@ $_modifierSeparator: '--';
 		// Css default
 		@include wil-form-item_css($css, $option);
 
-		@include placeholder {
+		@include formplaceholder {
 			$wil-placeholder: map-get(wil-form-item($option), 'placeholder');
 			@include wil-form-item_css($wil-placeholder, $option);
 		}
@@ -284,7 +284,7 @@ $_modifierSeparator: '--';
 					$wil-form-item-pseudo-css: map-remove($wil-form-item-pseudo-css, 'placeholder');
 					@include wil-form-item_css($wil-form-item-pseudo-css, $option);
 
-					@include placeholder {
+					@include formplaceholder {
 						$wil-placeholder-pseudo: map-get($cssPseudo, nth($wil-pseudo, $i));
 						$wil-placeholder-pseudo: map-get($wil-placeholder-pseudo, 'placeholder');
 						@include wil-form-item_css($wil-placeholder-pseudo, $option);
