@@ -36,13 +36,19 @@
     @content;
 }
 
-@mixin placeholder {
-	&::-webkit-input-placeholder,
-    &:-moz-placeholder,
-    &::-moz-placeholder,
-    &:-ms-input-placeholder {
-        @content;
-    }
+@mixin placeholder($type: "") {
+	$placeholders: ":-webkit-input" ":-moz" "-ms-input";
+	@each $placeholder in $placeholders {
+		@if($type == "default") {
+			:#{$placeholder}-placeholder {
+				@content;
+			}
+		} @else {
+			&:#{$placeholder}-placeholder {
+				@content;
+			}
+		}
+	}
 }
 
 @mixin text-ellipsis {
