@@ -1,3 +1,50 @@
+@mixin tableResponsive($media) {
+	$_media: $media;
+	@if ($media == 'sm') {
+		$_media: 767
+	}
+	@if ($media == 'md') {
+		$_media: 992
+	}
+	@if ($media == 'lg') {
+		$_media: 1200
+	}
+	@media (max-width: ($_media - 1) + 'px') {
+		.wil-table-responsive-#{$media} {
+			display: block;
+			tbody,
+			tfoot,
+			tr,
+			th,
+			td {
+				display: block;
+			}
+			thead {
+				display: none;
+			}
+			tr {
+				margin-bottom: 0;
+				border-bottom: 5px solid $color-gray-2;
+				&:last-child {
+					border: 0;
+				}
+			}
+			td {
+				text-align: left !important;
+			}
+			td[data-th]:before {
+				content: attr(data-th)': ';
+				font-family: $font-secondary;
+				font-weight: $font-bold;
+				font-size: 10px;
+				line-height: 1.3em;
+				color: $color-dark-1;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+			}
+		}
+	}
+}
 @mixin useTableResponsive {
 	table {
 		th {
@@ -10,54 +57,6 @@
 		table {
 			th {
 				text-align: right;
-			}
-		}
-	}
-	
-	@mixin tableResponsive($media) {
-		$_media: $media;
-		@if ($media == 'sm') {
-			$_media: 767
-		}
-		@if ($media == 'md') {
-			$_media: 992
-		}
-		@if ($media == 'lg') {
-			$_media: 1200
-		}
-		@media (max-width: ($_media - 1) + 'px') {
-			.wil-table-responsive-#{$media} {
-				display: block;
-				tbody,
-				tfoot,
-				tr,
-				th,
-				td {
-					display: block;
-				}
-				thead {
-					display: none;
-				}
-				tr {
-					margin-bottom: 0;
-					border-bottom: 5px solid $color-gray-2;
-					&:last-child {
-						border: 0;
-					}
-				}
-				td {
-					text-align: left !important;
-				}
-				td[data-th]:before {
-					content: attr(data-th)': ';
-					font-family: $font-secondary;
-					font-weight: $font-bold;
-					font-size: 10px;
-					line-height: 1.3em;
-					color: $color-dark-1;
-					text-transform: uppercase;
-					letter-spacing: 0.1em;
-				}
 			}
 		}
 	}
