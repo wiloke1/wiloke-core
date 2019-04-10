@@ -1,4 +1,4 @@
-:global {
+@mixin useEmbedResponsive {
 	.embed-responsive {
 		position: relative;
 		display: block;
@@ -24,5 +24,4 @@
 			border: 0;
 		}
 	}
-
 }

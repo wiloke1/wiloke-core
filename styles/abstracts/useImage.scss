@@ -1,4 +1,4 @@
-:global {
+@mixin useImage {
 	.wil__image {
 		display: block;
 		background-size: cover;

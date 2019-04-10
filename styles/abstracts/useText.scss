@@ -1,0 +1,51 @@
+@mixin useText {
+	.td-none {
+		text-decoration: none !important;
+	}
+	.td-underline {
+		text-decoration: underline !important;
+	}
+
+	.text-ellipsis {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.text-ellipsis-mode-none {
+		.text-ellipsis {
+			overflow: unset;
+			text-overflow: unset;
+			white-space: normal;
+
+			&.website {
+				word-break: break-all;
+			}
+		}
+	}
+
+	.wil-text-left,
+	.text-left {
+		text-align: left !important;
+	}
+
+	.rtl .wil-text-left,
+	.rtl .text-left {
+		text-align: right !important;
+	}
+
+	.wil-text-center,
+	.text-center {
+		text-align: center !important;
+	}
+
+	.wil-text-right,
+	.text-right {
+		text-align: right !important;
+	}
+
+	.rtl .wil-text-right,
+	.rtl .text-right {
+		text-align: left !important;
+	}
+}

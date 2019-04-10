@@ -1,4 +1,4 @@
-:global {
+@mixin useInput {
 	input[type="search"],
 	input[type="text"],
 	input[type="url"],
