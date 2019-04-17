@@ -2,6 +2,11 @@
 	body {
 		-webkit-font-smoothing: antialiased;
 	}
+
+	%outline-none {
+		outline: none;
+	}
+
 	a,
 	input,
 	button,
@@ -11,8 +16,11 @@
 			opacity: .5 !important;
 		}
 		&:focus {
-			outline: none;
+			@extend %outline-none;
 		}
+	}
+	[tabIndex] {
+		@extend %outline-none;
 	}
 	p {
 		margin-top: 0;
